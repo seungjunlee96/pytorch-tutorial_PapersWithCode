@@ -13,8 +13,8 @@ To minimize the content difference, we forward propagate the content image and t
 
 As in computing the content loss, we forward propagate the style image and the target image to the VGGNet and extract convolutional feature maps. To generate a texture that matches the style of the style image, we update the target image by minimizing the mean-squared error between the Gram matrix of the style image and the Gram matrix of the target image (feature correlation minimization). See [here](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03-advanced/neural_style_transfer/main.py#L84-L94) for how to compute the style loss.
 
-
-
+#### Details
+- Max pooling -> Average Pooling : Replacing the **Max Pooling** operation by **average pooling** improves the gradient flow and obtains slightly more appealing results.
 
 <br>
 
