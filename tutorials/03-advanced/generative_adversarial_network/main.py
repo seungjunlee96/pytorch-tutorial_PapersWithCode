@@ -70,6 +70,7 @@ d_optimizer = torch.optim.Adam(D.parameters(), lr=0.0002)
 g_optimizer = torch.optim.Adam(G.parameters(), lr=0.0002)
 
 def denorm(x):
+    """set image pixel range from [-1,1] to [0,1]"""
     out = (x + 1) / 2
     return out.clamp(0, 1)
 
