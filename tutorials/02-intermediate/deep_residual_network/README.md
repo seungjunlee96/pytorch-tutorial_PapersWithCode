@@ -11,6 +11,9 @@ Previous Approaches : *"Is learning better networks as easy as stacking more lay
 
 The degradation problem suggests that the sovlers might have **difficulties in approximating identity mappings** by multiple nonlineaer layers.
 
+<p align="center"><img width="100%" img height=100% src="ResNet_imgs/1.png" /></p>
+
+
 As a solution to the above problems, this paper introduced a ***"deep residual learning"*** framework.
 - **Residual Mapping: H(x) = F(x) + x** ( Conv block + Identity block)
 - Conv block : Conv > BN > ReLU > Conv > BN > ReLU > Conv > BN
@@ -20,8 +23,13 @@ As a solution to the above problems, this paper introduced a ***"deep residual l
 
 ResNet : Two kinds of Residual Blocks
 1. H(x) = F(x) + x
+
+<p align="center"><img width="50%" img height=50% src="ResNet_imgs/2.png" /></p>
+      
+
 2. H(x) = F(x) + WX (if the input shape changes after , operation W (Conv > BN) matches the shape)
 
+<p align="center"><img width="30%" img height=30% src="ResNet_imgs/3.png" /></p>
 
 Overall Network design
 1. for the same output feature map size, the layers have the same number of filters
