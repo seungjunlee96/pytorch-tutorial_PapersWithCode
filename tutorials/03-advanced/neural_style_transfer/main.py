@@ -30,21 +30,21 @@ def load_image(image_path, transform=None, max_size=None, shape=None):
     return image.to(device)
 
 
-class VGGNet(nn.Module):
+class VGGNet(torch.nn.Module):
     def __init__(self):
-        """Select conv1_1 ~ conv5_1 activation maps."""
-        super(VGGNet, self).__init__()
-        self.select = ['0', '5', '10', '19', '28'] 
-        self.vgg = models.vgg19(pretrained=True).features
-        
-    def forward(self, x):
-        """Extract multiple convolutional feature maps."""
-        features = []
-        for name, layer in self.vgg._modules.items():
-            x = layer(x)
-            if name in self.select:
-                features.append(x)
-        return features
+        """select conv1_1 ~ conv5_1 activation maps."""
+        super(VGGNet ,self).__init__()
+        self.feature_select = ['0' , '5' , '10' , '19' , '28']
+        self.vgg = torchvision.models.vgg19(pretrained = True).features
+
+def forward(self ,x):
+    """Extract multiple convolutional feature maps."""
+    features = []
+    for name, layer in self.vgg._modules.items():
+        if name in self.features_select:
+            feature = layer(x)
+            features.append(feature)
+    return features
 
 
 def main(config):
