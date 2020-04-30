@@ -7,8 +7,7 @@ Papers:
 - Encoder : Convolutional Network map given high dimensional image to **latent space representation**
 - Decoder : Deconvolutional Network decompress the **latent space representation** to high dimensional image.
 
-# Variational Autoencoder
-**변분 추론 (variational inference)**을 오토 인코더 구조를 통해 
+# Variational Autoencoder : **Variational inference**을 오토 인코더 구조를 통해 구현한 신경망.
 
 
 Given high dimension input data, the network compress down the input data to latent space representation through encoder network and decompress the latent space respresentation 
