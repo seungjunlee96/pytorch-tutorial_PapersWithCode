@@ -9,7 +9,7 @@
 - **Variational Inference** : p(z|x) ~= p(z)
 
 ## Brief Summary
-![VAE]('./images/VAE.png')
+![VAE](./images/VAE.png)
 
 ## Autoencoder의 구조는 동일
 - Encoder : Convolutional Network map given high dimensional image to **latent space representation**
