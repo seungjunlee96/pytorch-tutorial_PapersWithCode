@@ -3,33 +3,75 @@
 - [The original Paper of VAE (Variational Autoencoder)](https://arxiv.org/abs/1312.6114).
 - [Tutorial on Variational Autoencoder](https://arxiv.org/pdf/1906.02691.pdf) provides much more detailed explanation of VAE.
 
+Motivation: Generating high dimensional data such as (1)Random faces (2)Speech (3)Text ....
+
 ## Definition
 - **Variational Inference**을 오토 인코더 구조를 통해 구현한 신경망.
 - **Variational Inference** : General family of methods for **approximating** complicated densities by a simpler class of densities.
-- **Variational Inference** : q(z|x) ~= p(z|x) ,where p is much simpler than q.
+- **Variational Inference** : Approximate q(z|x) ~= p(z|x) ,where p is much simpler than q.
+
+Why Variational Inference?
+<p align="center"><img width="100%" src="images/variational_inference.png" /></p>
+- Problem : p(z|x) cannot be calculated.
 
 ## Brief Summary
 ![VAE](./images/VAE.png)
 
 ## Autoencoder의 구조는 동일
-- Encoder : Convolutional Network map given high dimensional image to **latent space representation**
-- Decoder : Deconvolutional Network decompress the **latent space representation** to high dimensional image.
-
 VAE : Autoencoder에서 더 나아가, Latent vector Z가 다루기 쉬운 "확률 분포"를 띄게 만들자!
+
+The main difference between VAE and AE is a constraint on the encoding network that forces it to generate latent vectors that roughly follow **a standard unit Gaussian distribution**.
+
+VAE is an autoencoder whose encodings distribution is regularised during the training in order to ensure that its latent space has good properties allowing us to generate some new data. Moreover, the term “variational” comes from the close relation there is between the regularisation and the variational inference method in statistics.
+
+- Manifold Hypothesis : Given high dimensional vectoc X, data is concentrated around a low dimensional manifold -> Hope finding a representation Z of that manifold. (dimension(X) > dimension(Z))
+- Intuition in the neural network perspective, VAE is just **stochastic autoencoder + regularization using prior**!
+- The main idea of VAE compared to AE is **regularization prior**.
+- p(z) is usually a simple prior N(0,1)
+
+
+Encoder : Wish to learn θ from the N training observation {X_1, X_2, ... , X_N}
+- Given a set of N-observations {X_1, X_2, ... , X_N}(e.g. images)
+- Comlex model parameterized with θ
+- There is a latents space with z ~ p(z) which is 'Multivariate Gaussian'.
+- x|z ~ p_θ(x|z)
+
+Decoder
+- Want to complex model of distribution of x given z
+- Idea : NN + Gaussian (or Bernoulli) here with diagonal covariance.
+
+Learning the parameters φ and θ via backpropagation
+Max-Likelihood, tune Φ, θ to maximize the likelihood
+
 
 The framework of *Variational Autoencoders*(VAEs) provides a principled method for jointly learning
 - deep latent-variable models 
 - corresponding inference models using stochastic gradient descent
 
+## Loss
+For our loss term, we sum up two separate losses:
+- Generative Loss : mean squared error that measures how accurately the network reconstructed the images
+- Latent Loss : KL divergence that measures how closely the latent variables match a unit gaussian
+```python
+generation_loss = F.mse(generated_image, real_image)
+latent_loss = KL_Divergence(latent_variable, unit_gaussian)
+loss = generation_loss + latent_loss
+```
+
 ## Reparameterization
+<p align="center"><img width="100%" src="images/VAE_2.png" /></p>
 
 
 ## Comparison between VAE vs GAN
-- Optimization
-- Image Quality 
+VAE
+- Optimization : Stochastic Gradient Descent 
+- Image Quality : blurry image ( due to mean squared error )
 - Generalization
 
-
+GAN
+- Optimization : 
+- Image Quality : 
+- Generalization : 
 
 
 
