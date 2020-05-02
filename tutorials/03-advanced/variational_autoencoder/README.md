@@ -24,6 +24,12 @@ Why Variational Inference?
 
 VAE : Autoencoder에서 더 나아가, Latent vector Z가 다루기 쉬운 "확률 분포"를 띄게 만들자!
 
+Z의 차원 수를 입력 X 보다 작게 하는 이유?
+- Data compression
+- Data visualization (ex. [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding))
+- Curse of dimensionality (Manifold Hypothesis)
+- Discovering the most important features (Reasonable distance metric, Needs disentangle the underlying explanatory factors, and Making sense of the data)
+
 The main difference between VAE and AE is a constraint on the encoding network that forces it to generate latent vectors that roughly follow **a standard unit Gaussian distribution**.
 
 VAE is an autoencoder whose encodings distribution is regularised during the training in order to ensure that its latent space has good properties allowing us to generate some new data. Moreover, the term “variational” comes from the close relation there is between the regularisation and the variational inference method in statistics.
@@ -34,7 +40,7 @@ VAE is an autoencoder whose encodings distribution is regularised during the tra
 - p(z) is usually a simple prior N(0,1)
 
 
-Encoder 
+Encoder : approximation class
 - Encoder = Posterior = Inference Network (**Gaussian**)
 - Wish to learn θ from the N training observation {X_1, X_2, ... , X_N}
 - Given a set of N-observations {X_1, X_2, ... , X_N}(e.g. images)
@@ -63,10 +69,14 @@ VAEs allow us to formalize this problem in the framework of probabilistic graphi
 For our loss term, we sum up two separate losses:
 - Generative Loss : mean squared error that measures how accurately the network reconstructed the images
 - Latent Loss : KL divergence that measures how closely the latent variables match a unit gaussian
+
 ```python
-generation_loss = F.mse(generated_image, real_image)
-latent_loss = KL_Divergence(latent_variable, unit_gaussian)
-loss = generation_loss + latent_loss
+# For KL divergence, see Appendix B in VAE paper
+reconst_loss = F.binary_cross_entropy(x_reconst, x, size_average=False)
+kl_div = - 0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp()) # KL( q(z|x) | p(z) ) where p(z) ~ N(0,I)
+
+# Backprop and optimize
+loss = reconst_loss + kl_div
 ```
 
 ## Reparameterization
