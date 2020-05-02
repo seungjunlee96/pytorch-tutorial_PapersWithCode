@@ -12,6 +12,7 @@ Motivation: Generating high dimensional data such as (1)Random faces (2)Speech (
 
 Why Variational Inference?
 <p align="center"><img width="50%" src="images/variational_inference.png" /></p>
+
 - Problem : p(z|x) cannot be calculated.
 - Solution : Variational Inference, p ~= q.
 
@@ -27,25 +28,26 @@ The main difference between VAE and AE is a constraint on the encoding network t
 
 VAE is an autoencoder whose encodings distribution is regularised during the training in order to ensure that its latent space has good properties allowing us to generate some new data. Moreover, the term “variational” comes from the close relation there is between the regularisation and the variational inference method in statistics.
 
-- Manifold Hypothesis : Given high dimensional vectoc X, data is concentrated around a low dimensional manifold -> Hope finding a representation Z of that manifold. (dimension(X) > dimension(Z))
+- Manifold Hypothesis : Given high dimensional vector X, data is concentrated around a low dimensional manifold -> Hope finding a representation Z of that manifold.
 - Intuition in the neural network perspective, VAE is just **stochastic autoencoder + regularization using prior**!
 - The main idea of VAE compared to AE is **regularization prior**.
 - p(z) is usually a simple prior N(0,1)
 
 
-Encoder : Wish to learn θ from the N training observation {X_1, X_2, ... , X_N}
+Encoder 
+- Encoder = Posterior = Inference Network (**Gaussian**)
+- Wish to learn θ from the N training observation {X_1, X_2, ... , X_N}
 - Given a set of N-observations {X_1, X_2, ... , X_N}(e.g. images)
 - Comlex model parameterized with θ
 - There is a latents space with z ~ p(z) which is 'Multivariate Gaussian'.
 - x|z ~ p_θ(x|z)
 
-Encoder = Posterior = Inference Network (Gaussian)
 
 Decoder
+- Decoder = Generator = Generation Network (**Bernoulli**)
 - Want to complex model of distribution of x given z
 - Idea : NN + Gaussian (or Bernoulli) here with diagonal covariance.
 
-Decoder = Generator = Generation Network (Bernoulli)
 
 Learning the parameters φ and θ via backpropagation
 Max-Likelihood, tune Φ, θ to maximize the likelihood
