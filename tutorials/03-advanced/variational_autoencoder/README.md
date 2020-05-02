@@ -19,6 +19,8 @@ Why Variational Inference?
 ![VAE](./images/VAE.png)
 
 ## Autoencoder의 구조는 동일
+**"The mathematical basis of VAEs actually has relatively little to do with classical autoencoders."**
+
 VAE : Autoencoder에서 더 나아가, Latent vector Z가 다루기 쉬운 "확률 분포"를 띄게 만들자!
 
 The main difference between VAE and AE is a constraint on the encoding network that forces it to generate latent vectors that roughly follow **a standard unit Gaussian distribution**.
@@ -37,9 +39,13 @@ Encoder : Wish to learn θ from the N training observation {X_1, X_2, ... , X_N}
 - There is a latents space with z ~ p(z) which is 'Multivariate Gaussian'.
 - x|z ~ p_θ(x|z)
 
+Encoder = Posterior = Inference Network (Gaussian)
+
 Decoder
 - Want to complex model of distribution of x given z
 - Idea : NN + Gaussian (or Bernoulli) here with diagonal covariance.
+
+Decoder = Generator = Generation Network (Bernoulli)
 
 Learning the parameters φ and θ via backpropagation
 Max-Likelihood, tune Φ, θ to maximize the likelihood
