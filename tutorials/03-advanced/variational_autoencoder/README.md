@@ -81,14 +81,14 @@ def reparameterize(self, mu, log_var):
 
 ## Comparison between VAE vs GAN
 VAE
-- Optimization : Stochastic Gradient Descent 
-- Image Quality : blurry image ( due to mean squared error )
-- Generalization
+- Optimization : Stochastic Gradient Descent / Converge local minimum / Easy to train
+- Image Quality : Smooth / Blurry 
+- Generalization : Tend to remember input images
 
 GAN
-- Optimization : Hard to train
-- Image Quality : 
-- Generalization : 
+- Optimization : Alternating stochastic gradient descent / Converge to saddle points / Hard to train
+- Image Quality : Sharp / Artifact
+- Generalization : Generate new unseen images 
 
 
 
